@@ -37,6 +37,7 @@ struct ContentView: View {
             VStack(spacing: 40){
                 
                 if !isRunning{
+                    
                     Text("Wich table you feel like practicing today")
                         .font(.headline)
                     
@@ -48,7 +49,7 @@ struct ContentView: View {
                                 multiTable = num
                             }
                             .padding(10)
-                            .background(.blue)
+                            .background(isTapped ? .blue.opacity(0.7) : .blue)
                             .foregroundColor(.white)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                         }
@@ -129,7 +130,6 @@ struct ContentView: View {
                 }
                 
             }
-            .background(.white)
             .ignoresSafeArea()
             .navigationTitle("Practicing tables")
             .toolbarBackground(Color.blue, for: .navigationBar)
