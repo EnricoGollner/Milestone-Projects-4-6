@@ -7,73 +7,6 @@
 
 import SwiftUI
 
-struct Play: View{
-    @State var quest: Int
-    @State var multiNum: Int
-    @State var multiTable: Int
-    @State var answerTry: String
-    @FocusState var answerTryisFocused
-    @State var score: Int
-    @State var alertTitle: String
-    @State var alertMsg: String
-    @State var showingAlert: Bool
-    @State var isRunning: Bool
-    @State var askQuest: () -> ()
-    @State var isOver: Bool
-    
-    
-    var body: some View{
-        VStack(spacing: 20){
-            Spacer()
-            Spacer()
-            
-            Text("Question \(quest)")
-                .font(.headline)
-            
-            Text("\(multiNum) x \(multiTable)")
-                .font(.largeTitle)
-            
-            Spacer()
-            
-            HStack{
-                TextField("Answer", text: $answerTry)
-                    .padding(20)
-                    .keyboardType(.decimalPad)
-                    .focused($answerTryisFocused)
-                    .background(.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(20)
-            }
-            .padding(20)
-            Spacer()
-            
-            Text("Score: \(score)")
-            
-            Spacer()
-        }
-        .alert(alertTitle, isPresented: $showingAlert){
-            Button("Yes"){
-                askQuest()
-            }
-            Button("No"){
-                isRunning = false
-            }
-        } message: {
-            Text(alertMsg)
-        }
-        .alert("Game over", isPresented: $isOver){
-            Button("Restart"){
-                isRunning = false
-            }
-        } message: {
-            Text("Your final score is: \(score)")
-        }
-    }
-    
-    
-}
-
-
 struct ContentView: View {
     @State private var isRunning = false
     
@@ -148,7 +81,51 @@ struct ContentView: View {
                         .transition(.scale)
                     }
                 } else{
-                    Play(quest: quest, multiNum: multiNum, multiTable: multiTable, answerTry: answerTry, score: score, alertTitle: alertTitle, alertMsg: alertMsg, showingAlert: showingAlert, isRunning: isRunning, askQuest: askQuest, isOver: isOver)
+                    VStack(spacing: 20){
+                        Spacer()
+                        Spacer()
+                        
+                        Text("Question \(quest)")
+                            .font(.headline)
+                        
+                        Text("\(multiNum) x \(multiTable)")
+                            .font(.largeTitle)
+                        
+                        Spacer()
+                        
+                        HStack{
+                            TextField("Answer", text: $answerTry)
+                                .padding(20)
+                                .keyboardType(.decimalPad)
+                                .focused($answerTryisFocused)
+                                .background(.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(20)
+                        }
+                        .padding(20)
+                        Spacer()
+                        
+                        Text("Score: \(score)")
+                        
+                        Spacer()
+                    }
+                    .alert(alertTitle, isPresented: $showingAlert){
+                        Button("Yes"){
+                            askQuest()
+                        }
+                        Button("No"){
+                            isRunning = false
+                        }
+                    } message: {
+                        Text(alertMsg)
+                    }
+                    .alert("Game over", isPresented: $isOver){
+                        Button("Restart"){
+                            isRunning = false
+                        }
+                    } message: {
+                        Text("Your final score is: \(score)")
+                    }
                 }
                 
             }
@@ -179,6 +156,7 @@ struct ContentView: View {
             
             if answer == numTry{
                 showAlert(title: "Correct!", msg: "Congratulations!\nWant to try again?")
+                score += 1
             } else{
                 showAlert(title: "Wrong!", msg: "Oh, you can do it!\nWant to try again?")
             }
