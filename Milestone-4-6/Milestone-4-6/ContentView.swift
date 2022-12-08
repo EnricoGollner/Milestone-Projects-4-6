@@ -32,6 +32,8 @@
             
             @State private var isOver = false
             
+            @State private var isEmpty = false
+            
             @State private var animationAmount = 1.0
             
             var body: some View{
@@ -43,11 +45,15 @@
                             Text("Wich table you feel like practicing today")
                                 .font(.headline)
                             
-                            Text("Selected: \(multiTable)")
-                                .padding(10)
-                                .background(.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
+                            VStack{
+                                Text("Selected:")
+                                Text("\(multiTable)")
+                                    .padding(15)
+                                    .background(.blue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                            }
+                                
                             
                             HStack(){
                                 ForEach(2..<11){ num in
@@ -98,6 +104,7 @@
                                 .onAppear{
                                     animationAmount = 2.0
                                 }
+                                
                             }
                         } else{
                             VStack(spacing: 20){
@@ -129,11 +136,17 @@
                                 Spacer()
                             }
                             .alert(alertTitle, isPresented: $showingAlert){
-                                Button("Yes"){
-                                    askQuest()
-                                }
-                                Button("No"){
-                                    isRunning = false
+                                if isEmpty{
+                                    Button("Ok"){
+                                        isEmpty = false
+                                    }
+                                } else{
+                                    Button("Yes"){
+                                        askQuest()
+                                    }
+                                    Button("No"){
+                                        isRunning = false
+                                    }
                                 }
                             } message: {
                                 Text(alertMsg)
@@ -157,8 +170,7 @@
                             Spacer()
                             Button("Done"){
                                 answerTryisFocused = false
-                                
-                                check(Int(answerTry.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0)
+                                check(answerTry)
                                 answerTry = ""
                             }
                         }
@@ -166,17 +178,25 @@
                 }
             }
             
-            func check(_ numTry: Int){
+            func check(_ answerTry: String){
+                
+                var answer = 0
+                
+                let numTry = Int(answerTry.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0
+                
                 if quest == totalQuestion{
                     isOver = true
+                } else if answerTry.count == 0{
+                    isEmpty = true
+                    showAlert(title: "It's empty", msg: "Try with a number! \nYou can do that.")
                 } else{
-                    let answer = multiNum * multiTable
+                    answer = multiNum * multiTable
                     
                     if answer == numTry{
                         showAlert(title: "Correct!", msg: "Congratulations!\nWant to try again?")
                         score += 1
                     } else{
-                        showAlert(title: "Wrong!", msg: "Oh, you can do it!\nWant to try again?")
+                        showAlert(title: "Wrong", msg: "Answer: \(answer)\nWant to try in the next one?")
                     }
                 }
             }
