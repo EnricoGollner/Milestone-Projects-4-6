@@ -8,13 +8,22 @@
 import SwiftUI
 
 struct Menu: View {
+    @State var quest: Int
+    @State var multiNum: Int
+    @State var multiTable: Int
+    @State var answerTry: String
+    @FocusState var answerTryisFocused
+    @State var score: Int
+    @State var alertTitle: String
+    @State var alertMsg: String
+    @State var showingAlert: Bool
+    @State var isRunning: Bool
+    @State var askQuest: () -> ()
+    @State var isOver: Bool
+    @State var numbQuests: [Int]
+    @State var totalQuestion: Int
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-struct Menu_Previews: PreviewProvider {
-    static var previews: some View {
-        Menu()
+       
     }
 }

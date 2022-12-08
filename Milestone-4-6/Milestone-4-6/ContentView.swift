@@ -104,7 +104,6 @@ struct ContentView: View {
             VStack(spacing: 40){
                 
                 if !isRunning{
-                    
                     Text("Wich table you feel like practicing today")
                         .font(.headline)
                     
@@ -116,7 +115,7 @@ struct ContentView: View {
                                 multiTable = num
                             }
                             .padding(10)
-                            .background(isTapped ? .blue.opacity(0.7) : .blue)
+                            .background(.blue)
                             .foregroundColor(.white)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                         }
