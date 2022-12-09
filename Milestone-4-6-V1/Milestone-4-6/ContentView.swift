@@ -65,7 +65,7 @@ struct ContentView: View {
                                 isTappedAux = num
                             }
                             .padding(10)
-                            .background(num == isTappedAux ? .blue.opacity(0.8) : .blue)
+                            .background(num == isTappedAux ? .blue.opacity(0.7) : .blue)
                             .foregroundColor(.white)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                         }
@@ -146,16 +146,21 @@ struct ContentView: View {
                         Spacer()
                     }
                     .alert(alertTitle, isPresented: $showingAlert){
+
                         if isEmpty{
                             Button("Ok"){
                                 isEmpty = false
+                            }
+                        } else if quest == totalQuestion{
+                            Button("Ok"){
+                                isOver = true
                             }
                         } else{
                             Button("Yes"){
                                 askQuest()
                             }
                             Button("No"){
-                                isRunning = false
+                                restart()
                             }
                         }
                     } message: {
@@ -163,9 +168,7 @@ struct ContentView: View {
                     }
                     .alert("Game over", isPresented: $isOver){
                         Button("Restart"){
-                            isRunning = false
-                            quest = 0
-                            score = 0
+                            restart()
                         }
                     } message: {
                         Text("Your final score is: \(score)")
@@ -196,6 +199,8 @@ struct ContentView: View {
         
         let numTry = Int(answerTry.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0
         
+        
+        
         if answerTry.count == 0{
             isEmpty = true
             showAlert(title: "It's empty", msg: "Try with a number! \nYou can do that.")
@@ -203,20 +208,20 @@ struct ContentView: View {
             answer = multiNum * multiTable
             
             if answer == numTry{
-                showAlert(title: "Correct!", msg: "Congratulations!\nWant to try again?")
                 score += 1
+                showAlert(title: "Correct!", msg: "Congratulations!\nWant to try again?")
             } else{
                 showAlert(title: "Wrong", msg: "Answer: \(answer)\nWant to try in the next one?")
-            }
-            
-            if quest == totalQuestion{
-                isOver = true
             }
         }
     }
 
     func askQuest(){
         quest += 1
+        
+        if quest > totalQuestion{
+            isOver = true
+        }
         
         withAnimation{
             animationRotate += 360
@@ -228,6 +233,12 @@ struct ContentView: View {
             multiNum = Int.random(in: 1...10)
         }
         
+    }
+    
+    func restart(){
+        isRunning = false
+        quest = 0
+        score = 0
     }
 
     func showAlert(title: String, msg: String){
