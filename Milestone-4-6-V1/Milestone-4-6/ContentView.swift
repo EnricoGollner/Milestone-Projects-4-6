@@ -9,35 +9,36 @@
 
 struct ContentView: View {
     @State private var isRunning = false
-
+    
     @State private var multiTable = 2
-
+    
     @State private var multiNum = Int.random(in: 1...10)
-
+    
     @State private var totalQuestion = 5
     let numbQuests = [5, 10, 20]
-
+    
     @State private var quest = 1
-
-    @State private var answerTry = ""
-    @FocusState private var answerTryisFocused: Bool
-
+    
     @State private var showingAlert = false
     @State private var alertTitle = ""
     @State private var alertMsg = ""
-
+    
     @State private var score = 0
-
+    
     @State private var isOver = false
-
+    
     @State private var isEmpty = false
-
+    
     @State private var animationAmount = 1.0
     
     @State private var isTapped = false
     @State private var isTappedAux = 1
-
+    
     @State private var animationRotate = 0.0
+    
+    @State private var answersOptions = [Int.random(in: 1...100), Int.random(in: 1...100), Int.random(in: 1...100)].shuffled()
+    
+    @State private var answerAux = 0
     
     var body: some View{
         NavigationStack{
@@ -56,7 +57,7 @@ struct ContentView: View {
                             .foregroundColor(.white)
                             .clipShape(Circle())
                     }
-                        
+                    
                     
                     HStack(){
                         ForEach(2..<11){ num in
@@ -86,10 +87,12 @@ struct ContentView: View {
                     .transition(.scale)
                     
                     if !isRunning{
-
+                        
                         Button("Play"){
                             withAnimation{
                                 isRunning.toggle()
+                                answersOptions.append(multiNum * multiTable)
+                                answersOptions.shuffle()
                             }
                         }
                         .padding(30)
@@ -113,6 +116,7 @@ struct ContentView: View {
                 } else{
                     VStack(spacing: 20){
                         Spacer()
+                        Spacer()
                         
                         Text("Question \(quest)")
                             .font(.headline)
@@ -125,20 +129,24 @@ struct ContentView: View {
                             .font(.largeTitle)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                             .rotation3DEffect(.degrees(animationRotate), axis: (x: 1, y: 0, z: 0))
-                            
+                        
+                        
                         
                         Spacer()
                         
-                        HStack{
-                            TextField("Answer", text: $answerTry)
-                                .padding(20)
-                                .keyboardType(.decimalPad)
-                                .focused($answerTryisFocused)
+                        VStack(spacing: 20){
+                            ForEach(answersOptions, id: \.self){ opt in
+                                Button("\(opt)"){
+                                    check(opt)
+                                }
+                                .frame(width: 160, height: 60)
                                 .background(.blue)
                                 .foregroundColor(.white)
-                                .cornerRadius(20)
+                                .font(.title)
+                                .clipShape(Capsule())
+                            }
                         }
-                        .padding(20)
+                        
                         Spacer()
                         
                         Text("Score: \(score)")
@@ -146,7 +154,7 @@ struct ContentView: View {
                         Spacer()
                     }
                     .alert(alertTitle, isPresented: $showingAlert){
-
+                        
                         if isEmpty{
                             Button("Ok"){
                                 isEmpty = false
@@ -156,10 +164,10 @@ struct ContentView: View {
                                 isOver = true
                             }
                         } else{
-                            Button("Yes"){
+                            Button("Continue"){
                                 askQuest()
                             }
-                            Button("No"){
+                            Button("Restart"){
                                 restart()
                             }
                         }
@@ -174,78 +182,63 @@ struct ContentView: View {
                         Text("Your final score is: \(score)")
                     }
                 }
-                
             }
             .ignoresSafeArea()
             .navigationTitle("Practicing tables")
             .toolbarBackground(Color.blue, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
-            .toolbar{
-                ToolbarItemGroup(placement: .keyboard){
-                    Spacer()
-                    Button("Done"){
-                        answerTryisFocused = false
-                        check(answerTry)
-                        answerTry = ""
-                    }
-                }
-            }
         }
     }
-
-    func check(_ answerTry: String){
         
-        var answer = 0
-        
-        let numTry = Int(answerTry.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0
-        
-        
-        
-        if answerTry.count == 0{
-            isEmpty = true
-            showAlert(title: "It's empty", msg: "Try with a number! \nYou can do that.")
-        } else{
-            answer = multiNum * multiTable
-            
-            if answer == numTry{
-                score += 1
-                showAlert(title: "Correct!", msg: "Congratulations!\nWant to try again?")
-            } else{
-                showAlert(title: "Wrong", msg: "Answer: \(answer)\nWant to try in the next one?")
-            }
-        }
-    }
-
-    func askQuest(){
-        quest += 1
-        
-        if quest > totalQuestion{
-            isOver = true
-        }
-        
-        withAnimation{
-            animationRotate += 360
-        }
-        
-        if quest > totalQuestion{
-            isOver = true
-        } else{
-            multiNum = Int.random(in: 1...10)
-        }
-        
-    }
     
-    func restart(){
-        isRunning = false
-        quest = 0
-        score = 0
-    }
-
-    func showAlert(title: String, msg: String){
-        alertTitle = title
-        alertMsg = msg
-        showingAlert = true
-    }
+    
+        func check(_ numOption: Int){
+            let answer = multiNum * multiTable
+            
+            answerAux = answer
+                        
+            if answer == numOption{
+                    score += 1
+                    showAlert(title: "Correct!", msg: "Congratulations!\nWant to try again?")
+                } else{
+                    showAlert(title: "Wrong", msg: "Answer: \(answer)\nWant to try in the next one?")
+                }
+        }
+        
+        func askQuest(){
+            
+            quest += 1
+            
+            if quest > totalQuestion{
+                isOver = true
+            }
+            
+            withAnimation{
+                animationRotate += 360
+            }
+            
+            if quest > totalQuestion{
+                isOver = true
+            } else{
+                multiNum = Int.random(in: 1...10)
+                answersOptions.remove(at: answersOptions.count - 1)
+                answersOptions.append(multiTable * multiNum)
+                answersOptions.shuffle()
+            }
+            
+        }
+        
+        func restart(){
+            isRunning = false
+            quest = 0
+            score = 0
+        }
+        
+        func showAlert(title: String, msg: String){
+            alertTitle = title
+            alertMsg = msg
+            showingAlert = true
+        }
 }
 
 struct ContentView_Previews: PreviewProvider {
