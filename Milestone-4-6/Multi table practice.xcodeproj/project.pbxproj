@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2AB2F02B2941674D00624C3D /* Milestone_4_6App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2F02A2941674D00624C3D /* Milestone_4_6App.swift */; };
+		2AB2F02B2941674D00624C3D /* MultiTablePractice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2F02A2941674D00624C3D /* MultiTablePractice.swift */; };
 		2AB2F02D2941674D00624C3D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2F02C2941674D00624C3D /* ContentView.swift */; };
 		2AB2F02F2941674D00624C3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AB2F02E2941674D00624C3D /* Assets.xcassets */; };
 		2AB2F0322941674D00624C3D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AB2F0312941674D00624C3D /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2AB2F0272941674D00624C3D /* Milestone-4-6.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Milestone-4-6.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2AB2F02A2941674D00624C3D /* Milestone_4_6App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Milestone_4_6App.swift; sourceTree = "<group>"; };
+		2AB2F0272941674D00624C3D /* Multi table practice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Multi table practice.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AB2F02A2941674D00624C3D /* MultiTablePractice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiTablePractice.swift; sourceTree = "<group>"; };
 		2AB2F02C2941674D00624C3D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2AB2F02E2941674D00624C3D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2AB2F0312941674D00624C3D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -43,7 +43,7 @@
 		2AB2F0282941674D00624C3D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2AB2F0272941674D00624C3D /* Milestone-4-6.app */,
+				2AB2F0272941674D00624C3D /* Multi table practice.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -51,7 +51,7 @@
 		2AB2F0292941674D00624C3D /* Milestone-4-6 */ = {
 			isa = PBXGroup;
 			children = (
-				2AB2F02A2941674D00624C3D /* Milestone_4_6App.swift */,
+				2AB2F02A2941674D00624C3D /* MultiTablePractice.swift */,
 				2AB2F02C2941674D00624C3D /* ContentView.swift */,
 				2AB2F02E2941674D00624C3D /* Assets.xcassets */,
 				2AB2F0302941674D00624C3D /* Preview Content */,
@@ -70,9 +70,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2AB2F0262941674D00624C3D /* Milestone-4-6 */ = {
+		2AB2F0262941674D00624C3D /* Multi table practice */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2AB2F0352941674D00624C3D /* Build configuration list for PBXNativeTarget "Milestone-4-6" */;
+			buildConfigurationList = 2AB2F0352941674D00624C3D /* Build configuration list for PBXNativeTarget "Multi table practice" */;
 			buildPhases = (
 				2AB2F0232941674D00624C3D /* Sources */,
 				2AB2F0242941674D00624C3D /* Frameworks */,
@@ -82,9 +82,9 @@
 			);
 			dependencies = (
 			);
-			name = "Milestone-4-6";
+			name = "Multi table practice";
 			productName = "Milestone-4-6";
-			productReference = 2AB2F0272941674D00624C3D /* Milestone-4-6.app */;
+			productReference = 2AB2F0272941674D00624C3D /* Multi table practice.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -102,7 +102,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2AB2F0222941674C00624C3D /* Build configuration list for PBXProject "Milestone-4-6" */;
+			buildConfigurationList = 2AB2F0222941674C00624C3D /* Build configuration list for PBXProject "Multi table practice" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -115,7 +115,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2AB2F0262941674D00624C3D /* Milestone-4-6 */,
+				2AB2F0262941674D00624C3D /* Multi table practice */,
 			);
 		};
 /* End PBXProject section */
@@ -138,7 +138,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2AB2F02D2941674D00624C3D /* ContentView.swift in Sources */,
-				2AB2F02B2941674D00624C3D /* Milestone_4_6App.swift in Sources */,
+				2AB2F02B2941674D00624C3D /* MultiTablePractice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,7 +320,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2AB2F0222941674C00624C3D /* Build configuration list for PBXProject "Milestone-4-6" */ = {
+		2AB2F0222941674C00624C3D /* Build configuration list for PBXProject "Multi table practice" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2AB2F0332941674D00624C3D /* Debug */,
@@ -329,7 +329,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2AB2F0352941674D00624C3D /* Build configuration list for PBXNativeTarget "Milestone-4-6" */ = {
+		2AB2F0352941674D00624C3D /* Build configuration list for PBXNativeTarget "Multi table practice" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2AB2F0362941674D00624C3D /* Debug */,
