@@ -40,6 +40,14 @@ struct ContentView: View {
     
     @State private var answerAux = 0
     
+    func isDefault(_ num: Int) -> Color{
+        if num == 2{
+            return .blue.opacity(0.7)
+        } else{
+            return .blue
+        }
+    }
+    
     var body: some View{
         NavigationStack{
             VStack(spacing: 40){
@@ -66,7 +74,7 @@ struct ContentView: View {
                                 isTappedAux = num
                             }
                             .padding(10)
-                            .background(num == isTappedAux ? .blue.opacity(0.7) : .blue)
+                            .background(num == isTappedAux ? .blue.opacity(0.7) : isDefault(num))
                             .foregroundColor(.white)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                         }
@@ -91,6 +99,8 @@ struct ContentView: View {
                         Button("Play"){
                             withAnimation{
                                 isRunning.toggle()
+                                
+                                hasAnswer()
                                 
                                 answersOptions.append(multiNum * multiTable)
                                 answersOptions.shuffle()
@@ -165,11 +175,11 @@ struct ContentView: View {
                                 isOver = true
                             }
                         } else{
-                            Button("Continue"){
-                                askQuest()
-                            }
                             Button("Restart"){
                                 restart()
+                            }
+                            Button("Continue"){
+                                askQuest()
                             }
                         }
                     } message: {
@@ -197,6 +207,8 @@ struct ContentView: View {
             let answer = multiNum * multiTable
             
             answerAux = answer
+            
+            
                         
             if answer == numOption{
                     score += 1
@@ -205,6 +217,23 @@ struct ContentView: View {
                     showAlert(title: "Wrong", msg: "Answer: \(answer)\nWant to try in the next one?")
                 }
         }
+    
+    func hasAnswer(){
+        let alreadyHasAnswer = answersOptions.contains(answerAux)
+        
+        if alreadyHasAnswer{
+            var range = 0
+            
+            for i in answersOptions{
+                if i == answerAux{
+                    range = 1
+                }
+            }
+            
+            answersOptions.remove(at: range)
+            answersOptions.append(Int.random(in: 1...10))
+        }
+    }
         
         func askQuest(){
             
@@ -213,6 +242,8 @@ struct ContentView: View {
             if quest > totalQuestion{
                 isOver = true
             }
+            
+            hasAnswer()
             
             withAnimation{
                 animationRotate += 360
@@ -232,8 +263,9 @@ struct ContentView: View {
         
         func restart(){
             isRunning = false
-            quest = 0
+            quest = 1
             score = 0
+            answersOptions.remove(at: answersOptions.count - 1)
         }
         
         func showAlert(title: String, msg: String){
