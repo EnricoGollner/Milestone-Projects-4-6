@@ -91,6 +91,7 @@ struct ContentView: View {
                         Button("Play"){
                             withAnimation{
                                 isRunning.toggle()
+                                
                                 answersOptions.append(multiNum * multiTable)
                                 answersOptions.shuffle()
                             }
@@ -199,7 +200,7 @@ struct ContentView: View {
                         
             if answer == numOption{
                     score += 1
-                    showAlert(title: "Correct!", msg: "Congratulations!\nWant to try again?")
+                    showAlert(title: "Correct!", msg: "Congratulations!\nWant to try the next one?")
                 } else{
                     showAlert(title: "Wrong", msg: "Answer: \(answer)\nWant to try in the next one?")
                 }
@@ -221,6 +222,7 @@ struct ContentView: View {
                 isOver = true
             } else{
                 multiNum = Int.random(in: 1...10)
+                
                 answersOptions.remove(at: answersOptions.count - 1)
                 answersOptions.append(multiTable * multiNum)
                 answersOptions.shuffle()

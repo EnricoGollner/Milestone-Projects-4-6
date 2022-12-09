@@ -112,6 +112,8 @@ var body: some View{
                 }
             } else{
                 VStack(spacing: 20){
+                    Spacer()
+                    Spacer()
                     
                     Text("Question \(quest)")
                         .font(.headline)
