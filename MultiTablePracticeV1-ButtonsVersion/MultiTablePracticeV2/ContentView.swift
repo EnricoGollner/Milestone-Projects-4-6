@@ -179,6 +179,7 @@ var body: some View{
         }
         .ignoresSafeArea()
         .navigationTitle("Practicing tables")
+        .preferredColorScheme(.dark)
         .toolbarBackground(Color.blue, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbar{
